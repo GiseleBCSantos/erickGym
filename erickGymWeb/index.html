@@ -9,7 +9,7 @@
     <title>Erick Gym</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #e3f2fd;">
         <div class="container-fluid">
           <a class="navbar-brand" href="index.html">ErickGym</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,8 +22,8 @@
                       Alunos
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="listagem.html">Listagem</a></li>
-                      <li><a class="dropdown-item" href="registrar.html">Cadastro</a></li>
+                      <li><a class="dropdown-item" href="./alunos/listagem-aluno.html">Listagem</a></li>
+                      <li><a class="dropdown-item" href="./alunos/cadastro-aluno.html">Cadastro</a></li>
                     </ul>
                   </li>
 
@@ -47,6 +47,55 @@
           </div>
         </div>
       </nav>
+
+
+      <main class="container">
+        <div class="row">
+          <div class="card" style="width: 18rem;">
+            <div class="card-header text-center m-2">Para alunos</div>
+            <img src="./assets/alunos.jpeg" class="card-img-top" alt="imagem alunos">
+            <div class="card-body">
+              <h5 class="card-title">Seja um aluno</h5>
+              <p class="card-text">Se cadastre na ErickGym ou veja quais exercícios temos disponíveis na nossa academia.</p>
+            </div>
+            <ul class="list-group list-group-flush  text-center">
+              <li class="list-group-item">
+                <a href="./alunos/cadastro-aluno.html" class="card-link">Cadastrar</a>
+              </li>
+              <li class="list-group-item">
+                <a href="#" class="card-link">Exercicios disponíveis</a>
+              </li>
+              
+            </ul>
+            
+          </div>
+
+          <div class="card" style="width: 18rem;">
+            <div class="card-header text-center m-2">Para treinadores</div>
+            <img src="./assets/personal.jpeg" class="card-img-top" alt="foto-personal">
+            <div class="card-body">
+              <h5 class="card-title">Atualizar</h5>
+              <p class="card-text">Atualize com frequencia os exercicios e os alunos cadastrados.</p>
+            </div>
+            <ul class="list-group list-group-flush text-center">
+              <li class="list-group-item">
+                <a href="#" class="card-link">Exercicios disponíveis</a>
+              </li>
+              <li class="list-group-item">
+                <a href="#" class="card-link">Adicionar exercício</a>
+              </li>
+              <li class="list-group-item">
+                <a href="listagem-aluno.html" class="card-link">Alunos cadastrados</a>
+              </li>
+              <li class="list-group-item">
+                <a href="cadastro-aluno.html" class="card-link">Adicionar aluno</a>
+              </li>
+              
+            </ul>
+            
+          </div>
+        </div>
+      </main>
 
 
     

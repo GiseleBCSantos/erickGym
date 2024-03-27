@@ -6,7 +6,7 @@ const cx_data_nascimento = document.getElementById('aluno-data-nascimento')
 const cx_telefone = document.getElementById('aluno-telefone')
 const cx_cpf = document.getElementById('aluno-cpf')
 const btnCadastroAluno = document.getElementById('btn-cadastro-aluno')
-const API_URL_aluno = 'https://erickgym.onrender.com/aluno/api'
+const API_URL_aluno = 'https://erickgym.onrender.com/aluno'
 
 function main(){
     console.log('main')
@@ -26,12 +26,12 @@ async function carregarAlunos(){
 
 async function salvarAluno(event){
     event.preventDefault()
-    nome = cx_nome.value
-    foto = cx_foto.value
-    sexo = cx_sexo.value
-    data_nascimento = cx_dt_nascimento.value
-    telefone = cx_telefone.value
-    cpf = cx_cpf.value
+    const nome = cx_nome.value
+    const foto = cx_foto.value
+    const sexo = cx_sexo.value
+    const data_nascimento = cx_data_nascimento.value
+    const telefone = cx_telefone.value
+    const cpf = cx_cpf.value
 
     const dados = {nome, foto, sexo, data_nascimento, telefone, cpf}
 
@@ -63,10 +63,10 @@ async function apagarAluno(id){
         }
     }
 
-    await fetch(`${API_URL_aluno}/deletar/${id}`, config).then(response => {
+    await fetch(`${API_URL_aluno}/${id}`, config).then(response => {
         if (response.status >=200 && response.status <= 300){
             alert('Deletado com sucesso')
-            window.location.href = '../index.html'
+            window.location.href = 'listagem-aluno.html'
         }
         else{
             alert(`${response.status} erro ao deletar`)
@@ -76,71 +76,6 @@ async function apagarAluno(id){
 
 async function clicarModificarAluno(id){
     window.location = `cadastro-aluno.html?id=${id}`
-}
-
-async function modificarAluno(event, id){
-    event.preventDefault()
-
-    response = await fetch(`${API_URL_aluno}/obter/${id}`)
-    
-    if (response.status === 200){
-        const aluno = await response.json()
-        
-        
-        const nome = aluno.nome
-        const foto = aluno.foto
-        const sexo = aluno.sexo
-        const data_nascimento = aluno.data_nascimento
-        const telefone = aluno.telefone
-        const cpf = aluno.cpf
-        
-        
-        console.log(aluno)
-
-
-        cx_nome.value = nome
-        cx_foto.value = foto
-        cx_sexo.value = sexo
-        cx_data_nascimento.value = data_nascimento
-        cx_telefone.value = telefone
-        cx_cpf.value = cpf
-        
-        btnCadastroAluno.value = 'Atualizar'
-        btnCadastroAluno.setAttribute('onclick', modificarAluno(id))
-        
-    }
-    else{
-        alert('erro')
-    }
-
-
-    // const nome = cx_nome.value
-    // const foto = cx_foto.value
-    // const sexo = cx_sexo.value
-    // const data_nascimento = cx_dt_nascimento.value
-    // const telefone = cx_telefone.value
-    // const cpf = cx_cpf.value
-
-    // const dados = {nome, foto, sexo, data_nascimento, telefone, cpf}
-
-    // const config = {
-    //     method: 'PUT',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(dados)
-    // }
-
-    // await fetch(`${API_URL_aluno}/modificar/${id}`, config).then(response => {
-    //     if (response.status >= 200 && response.status < 300){
-    //         alert('modificado com sucesso')
-    //         window.location.href = '../index.html'
-    //     }
-    //     else{
-    //         alert(`${response.status} erro ao modificar`)
-    //     }
-    // })
-    //     .catch(error => console.log)
 }
 
 

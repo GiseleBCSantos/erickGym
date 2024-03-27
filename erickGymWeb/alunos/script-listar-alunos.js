@@ -2,7 +2,7 @@ const tabelaAlunos = document.getElementById('tabela-alunos')
 const cx_nome = document.getElementById('aluno-nome')
 const cx_foto = document.getElementById('aluno-foto')
 const cx_sexo = document.getElementById('aluno-sexo')
-const cx_dt_nascimento = document.getElementById('aluno-dt-nascimento')
+const cx_data_nascimento = document.getElementById('aluno-data-nascimento')
 const cx_telefone = document.getElementById('aluno-telefone')
 const cx_cpf = document.getElementById('aluno-cpf')
 const btnCadastroAluno = document.getElementById('btn-cadastro-aluno')
@@ -24,7 +24,8 @@ async function carregarAlunos(){
     }
 }
 
-async function salvarAluno(){
+async function salvarAluno(event){
+    event.preventDefault()
     nome = cx_nome.value
     foto = cx_foto.value
     sexo = cx_sexo.value
@@ -73,67 +74,73 @@ async function apagarAluno(id){
     })
 }
 
-async function iniciarModificarAluno(id){
+async function clicarModificarAluno(id){
+    window.location = `cadastro-aluno.html?id=${id}`
+}
+
+async function modificarAluno(event, id){
+    event.preventDefault()
+
     response = await fetch(`${API_URL_aluno}/obter/${id}`)
     
     if (response.status === 200){
-        window.location.href = 'cadastro-aluno.html'
-        
         const aluno = await response.json()
         
+        
         const nome = aluno.nome
-        if (aluno.foto){
-            foto.innerText = `${aluno.foto}`
-        }
-        else{
-            foto.innerText = 'Sem foto'
-        }
+        const foto = aluno.foto
         const sexo = aluno.sexo
         const data_nascimento = aluno.data_nascimento
         const telefone = aluno.telefone
         const cpf = aluno.cpf
+        
+        
+        console.log(aluno)
+
 
         cx_nome.value = nome
         cx_foto.value = foto
         cx_sexo.value = sexo
-        cx_dt_nascimento.value = data_nascimento
+        cx_data_nascimento.value = data_nascimento
         cx_telefone.value = telefone
         cx_cpf.value = cpf
-
+        
         btnCadastroAluno.value = 'Atualizar'
         btnCadastroAluno.setAttribute('onclick', modificarAluno(id))
-
+        
     }
-}
-
-async function modificarAluno(id){
-    const nome = cx_nome.value
-    const foto = cx_foto.value
-    const sexo = cx_sexo.value
-    const data_nascimento = cx_dt_nascimento.value
-    const telefone = cx_telefone.value
-    const cpf = cx_cpf.value
-
-    const dados = {nome, foto, sexo, data_nascimento, telefone, cpf}
-
-    const config = {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dados)
+    else{
+        alert('erro')
     }
 
-    await fetch(`${API_URL_aluno}/modificar/${id}`, config).then(response => {
-        if (response.status >= 200 && response.status < 300){
-            alert('modificado com sucesso')
-            window.location.href = '../index.html'
-        }
-        else{
-            alert(`${response.status} erro ao modificar`)
-        }
-    })
-        .catch(error => console.log)
+
+    // const nome = cx_nome.value
+    // const foto = cx_foto.value
+    // const sexo = cx_sexo.value
+    // const data_nascimento = cx_dt_nascimento.value
+    // const telefone = cx_telefone.value
+    // const cpf = cx_cpf.value
+
+    // const dados = {nome, foto, sexo, data_nascimento, telefone, cpf}
+
+    // const config = {
+    //     method: 'PUT',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(dados)
+    // }
+
+    // await fetch(`${API_URL_aluno}/modificar/${id}`, config).then(response => {
+    //     if (response.status >= 200 && response.status < 300){
+    //         alert('modificado com sucesso')
+    //         window.location.href = '../index.html'
+    //     }
+    //     else{
+    //         alert(`${response.status} erro ao modificar`)
+    //     }
+    // })
+    //     .catch(error => console.log)
 }
 
 
@@ -159,7 +166,7 @@ function adicionarAlunoTabela(aluno){
     data_nasc.innerText = `${aluno.data_nascimento}`
     telefone.innerText = `${aluno.telefone}`
     cpf.innerText = `${aluno.cpf}`
-    modificar.innerHTML = `<button class="btn btn-warning" onclick="iniciarModificarAluno(${aluno.id})"><i class="fa-solid fa-pen-to-square"></i></button>`
+    modificar.innerHTML = `<button class="btn btn-warning" onclick="clicarModificarAluno(${aluno.id})"><i class="fa-solid fa-pen-to-square"></i></button>`
     deletar.innerHTML = `<button class="btn btn-danger" onclick="apagarAluno(${aluno.id})"><i class="fa-solid fa-trash"></i></button>`
 
 

@@ -1,11 +1,9 @@
 from django.urls import path
 from django.contrib import admin
-from .views import AlunoView
+from .views import ListCreateAlunoView, DeleteUpdateDetailAlunoView
 
 urlpatterns = [
-    path('api', AlunoView.as_view()),
-    path('api', AlunoView.as_view()),
-    path('api/obter/<int:pk>', AlunoView.as_view()),
-    path('api/modificar/<int:pk>', AlunoView.as_view()),
-    path('api/deletar/<int:pk>', AlunoView.as_view())
+    path('aluno', ListCreateAlunoView.as_view()),
+    path('aluno/<int:pk>', DeleteUpdateDetailAlunoView.as_view()),
+    
 ]

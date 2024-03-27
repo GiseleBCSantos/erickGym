@@ -8,39 +8,43 @@ from .serializer import ExercicioSerializer
 
 # Create your views here.
 
-class ListaExercicioView(APIView):
-    def get(self, request, pk=0):
-        if pk == 0:
-            exercicios = Exercicio.objects.all()
-            serializer = ExercicioSerializer(exercicios, many=True)
-            return Response(serializer.data)
-        else:
-            exercicio = Exercicio.objects.get(pk=pk)
-            serializer = ExercicioSerializer(exercicio)
-            return Response(serializer.data, status=200)
-    
-    def get_object(self, pk):
-        try:
-            return Exercicio.objects.get(pk=pk)
-        except Exercicio.DoesNotExist:
-            raise Http404
+class ListCreateExercicioView(APIView):
+    def get(self, request):
+        exercicios = Exercicio.objects.all()
+        serializer = ExercicioSerializer(exercicios, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-    
     def post(self, request):
-        serializer = ExercicioSerializer(data=request.data)
+        serializer = ExercicioSerializer(request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=201)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors, status = 404)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
 
+
+class DeleteUpdateDetailExercicioView(APIView):
+    def get_object(self, pk):
+        try:
+            exercicio = Exercicio.objects.get(pk=pk)
+            return exercicio
+        except Exercicio.DoesNotExist:
+            return Http404
+
+
+    def get(self, request, pk):
+        exercicio = self.get_object(pk)
+        serializer = ExercicioSerializer(exercicio)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
 
     def put(self, request, pk):
         exercicio = self.get_object(pk)
-        serializer = ExercicioSerializer(exercicio, data=request.data)
+        serializer = ExercicioSerializer(exercicio, request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

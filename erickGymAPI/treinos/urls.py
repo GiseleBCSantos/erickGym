@@ -1,11 +1,8 @@
 from django.contrib import admin
 from django.urls import path
-from .views import ListaExercicioView
+from .views import ListCreateExercicioView, DeleteUpdateDetailExercicioView
 
 urlpatterns = [
-    path('api', ListaExercicioView.as_view()),
-    path('api', ListaExercicioView.as_view()),
-    path('api/obter/<int:pk>', ListaExercicioView.as_view()),
-    path('api/modificar/<int:pk>', ListaExercicioView.as_view()),
-    path('api/deletar/<int:pk>', ListaExercicioView.as_view()),
+    path('exercicio', ListCreateExercicioView.as_view()),
+    path('exercicio/<int:pk>', DeleteUpdateDetailExercicioView.as_view()),
 ]

@@ -83,24 +83,24 @@ WSGI_APPLICATION = 'erickGymAPI.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "erickgymdb_name",
-#         "USER": "erickgymdb_user",
-#         "PASSWORD": config('DB_PASSWORD'),
-#         "HOST": "dpg-co1afc5a73kc73f4i4q0-a.ohio-postgres.render.com",
-#         "PORT": "5432",
-#     }
-# }
-
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "erickgymdb_name",
+        "USER": "erickgymdb_user",
+        "PASSWORD": config('DB_PASSWORD'),
+        "HOST": "dpg-co1afc5a73kc73f4i4q0-a.ohio-postgres.render.com",
+        "PORT": "5432",
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation

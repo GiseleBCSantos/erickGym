@@ -74,7 +74,7 @@ async function mostrarAlunoModificado(id){
         const nome = aluno.nome
         const foto = aluno.foto
         const sexo = aluno.sexo
-        const data_nascimento = new Date(aluno.data_nascimento)
+        const data_nascimento = aluno.data_nascimento
         const telefone = aluno.telefone
         const cpf = aluno.cpf
         

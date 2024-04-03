@@ -59,17 +59,17 @@ async function mostrarExercicioModificado(id){
     if (response.ok){
         const exercicio = await response.json()
         
-        // const nome = exercicio.nome
-        // const descricao = exercicio.descricao
-        // const ativo = exercicio.ativo
-        // const em_aparelho = exercicio.em_aparelho
-        // const idade_minima = exercicio.idade_minima
+        const nome = exercicio.nome
+        const descricao = exercicio.descricao
+        const ativo = exercicio.ativo
+        const em_aparelho = exercicio.em_aparelho
+        const idade_minima = exercicio.idade_minima
         
-        cx_nome.value = exercicio.nome
-        cx_descricao.value = exercicio.descricao
-        cx_ativo.value = exercicio.ativo
-        cx_em_aparelho.value = exercicio.em_aparelho
-        cx_idade_minima.value = exercicio.idade_minima
+        cx_nome.value = nome
+        cx_descricao.value = descricao
+        cx_ativo.value = ativo
+        cx_em_aparelho.value = em_aparelho
+        cx_idade_minima.value = idade_minima
         
         btnCadastroExercicio.innerText = 'Atualizar'
         

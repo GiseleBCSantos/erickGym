@@ -1,0 +1,19 @@
+form {
+    text-align: center;
+    padding-top: 10px;
+}
+
+form .row{
+    margin: 10px auto 5px;
+    width: 500px;
+}
+
+button{
+    margin-top: 10px;
+}
+
+form .form-check{
+    width: 200px;
+    margin: 10px auto 5px;
+}
+

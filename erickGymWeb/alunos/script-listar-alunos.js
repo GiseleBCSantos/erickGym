@@ -6,7 +6,7 @@ const cx_data_nascimento = document.getElementById('aluno-data-nascimento')
 const cx_telefone = document.getElementById('aluno-telefone')
 const cx_cpf = document.getElementById('aluno-cpf')
 const btnCadastroAluno = document.getElementById('btn-cadastro-aluno')
-const API_URL_aluno = 'https://erickgym.onrender.com/aluno'
+const API_URL_aluno = 'https://erickgym.onrender.com/alunos'
 
 function main(){
     console.log('main')

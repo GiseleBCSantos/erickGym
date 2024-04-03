@@ -5,11 +5,11 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 # Create your views here.
 
 class ListCreateExercicioView(ListCreateAPIView):
-    queryset = Exercicio
+    queryset = Exercicio.objects.all()
     serializer_class = ExercicioSerializer
         
 
 
 class DeleteUpdateDetailExercicioView(RetrieveUpdateDestroyAPIView):
-    queryset = Exercicio
+    queryset = Exercicio.objects.all()
     serializer_class = ExercicioSerializer

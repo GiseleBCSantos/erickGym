@@ -65,7 +65,7 @@ function adicionarExercicioTabela(exercicio){
     row.appendChild(modificar)
     row.appendChild(deletar)
 
-    tabelaAlunos.appendChild(row)
+    tabelaExercicios.appendChild(row)
 }
 
 main()

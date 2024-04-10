@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-1@u0g(_v$p-q*f11!vuglw#4cec8l*iet&lgh2+1!dun2nc0wo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [config('ALLOWED')]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 CORS_ALLOWED_ORIGINS = [config('CORS')]
@@ -44,8 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
     'treinos',
-    'aluno'
+    'aluno',
+    'autenticacao',
 ]
 
 MIDDLEWARE = [
@@ -83,24 +85,24 @@ WSGI_APPLICATION = 'erickGymAPI.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "erickgymdb_name",
-        "USER": "erickgymdb_user",
-        "PASSWORD": config('DB_PASSWORD'),
-        "HOST": "dpg-co1afc5a73kc73f4i4q0-a.ohio-postgres.render.com",
-        "PORT": "5432",
-    }
-}
-
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "erickgymdb_name",
+#         "USER": "erickgymdb_user",
+#         "PASSWORD": config('DB_PASSWORD'),
+#         "HOST": "dpg-co1afc5a73kc73f4i4q0-a.ohio-postgres.render.com",
+#         "PORT": "5432",
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation
@@ -146,3 +148,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK={
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.TokenAuthentication'
+    ],
+    'DEFAULT_PERMISSION_CLASSES':[
+        # 'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}

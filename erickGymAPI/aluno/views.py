@@ -5,51 +5,28 @@ from rest_framework import status
 from django.http import Http404
 from rest_framework.views import APIView
 from .serializer import AlunoSerializer
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
-class ListCreateAlunoView(APIView):
-    def get(self, request):
-        alunos = Aluno.objects.all()
-        serializer = AlunoSerializer(alunos, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    
-    def post(self, request):
-        serializer = AlunoSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class ListCreateAlunoView(ListCreateAPIView):
+    queryset = Aluno.objects.all()
+    serializer_class = AlunoSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+       serializer.save(usuario=self.request.user)
 
 
-class DeleteUpdateDetailAlunoView(APIView):
-    def get_object(self, pk):
-        try:
-            aluno = Aluno.objects.get(pk=pk)
-            return aluno
-        except Aluno.DoesNotExist:
-            return Http404
+class DeleteUpdateDetailAlunoView(RetrieveUpdateDestroyAPIView):
+    queryset = Aluno
+    serializer_class = AlunoSerializer
+    permisson_classes = [IsAuthenticated]
 
-
-    def get(self, request, pk):
-        aluno = self.get_object(pk)
-        serializer = AlunoSerializer(aluno)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def put(self, request, pk):
-        aluno = self.get_object(pk)
-        serializer = AlunoSerializer(aluno, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-
-    def delete(self, request, pk):
-        aluno = self.get_object(pk)
-        aluno.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-            
+    def get_object(self):
+        user = self.request.user
+        obj = super().get_object()
+        if obj.usuario == user:
+            return obj
+        raise Http404
